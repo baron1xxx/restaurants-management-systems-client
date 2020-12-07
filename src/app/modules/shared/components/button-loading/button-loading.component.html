@@ -1,0 +1,6 @@
+<button type="button"
+        class="btn btn-primary btn-lg btn-block"
+        [disabled]="isLoading"
+        (click)="toggleLoading()">{{ !isLoading ? title : 'Loading...' }}
+  <div *ngIf="isLoading" class="spinner-border text-light" role="status"></div>
+</button>
