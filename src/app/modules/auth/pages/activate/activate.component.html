@@ -1,0 +1,39 @@
+<app-success-message
+  *ngIf="successMessage"
+  [message]="successMessage"
+  (closeSuccessAlert)="closeSuccessMessage()"
+></app-success-message>
+<app-error-message
+  *ngIf="errorMessage"
+  [message]="errorMessage"
+  (closeDangerAlert)="closeErrorMessage()"
+></app-error-message>
+<div class="form-container" *ngIf="activateError">
+  <form [formGroup]="reactivateForm" (ngSubmit)="reactivateAccount()">
+    <div class="mb-3">
+      <input type="email"
+             class="form-control"
+             placeholder="Email"
+             required
+             formControlName="email">
+      <div class="valid-feedback my-valid-feedback" *ngIf="email.valid && (email.dirty || email.touched)">
+        Looks good!
+      </div>
+      <div class="invalid-feedback my-invalid-feedback"
+           *ngIf="email.invalid && (email.dirty || email.touched)">
+        <div *ngIf="email.errors.required">
+          Email is required.
+        </div>
+        <div *ngIf="email.errors.pattern">
+          Do not match pattern.
+        </div>
+      </div>
+      <div id="emailHelp" class="form-text my-form-text">
+        Enter your email address associated with the account that you want to reactivate.
+      </div>
+    </div>
+    <app-button-loading [loading]="isLoading" [valid]="!reactivateForm.valid"></app-button-loading>
+  </form>
+</div>
+<app-button-link [routerLink]="['/auth','login']" [title]="'Login'" *ngIf="!activateError"></app-button-link>
+

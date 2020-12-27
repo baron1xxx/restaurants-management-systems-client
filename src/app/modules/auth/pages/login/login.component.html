@@ -1,1 +1,53 @@
-<p>login works!</p>
+<app-error-message
+  *ngIf="errorMessage"
+  [message]="errorMessage"
+  (closeDangerAlert)="closeErrorMessage()">
+</app-error-message>
+
+<form [formGroup]="loginForm" (ngSubmit)="registration()" class="form-container">
+  <div class="form-row">
+    <div class="col-md-12 mb-3">
+      <input type="email"
+             class="form-control"
+             placeholder="Email"
+             required
+             formControlName="email">
+      <div class="valid-feedback my-valid-feedback" *ngIf="email.valid && (email.dirty || email.touched)">
+        Looks good!
+      </div>
+      <div class="invalid-feedback my-invalid-feedback"
+           *ngIf="email.invalid && (email.dirty || email.touched)">
+        <div *ngIf="email.errors.required">
+          Email is required.
+        </div>
+        <div *ngIf="email.errors.pattern">
+          Do not match pattern.
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="col-md-12 mb-3">
+      <input type="password"
+             class="form-control"
+             placeholder="Password"
+             autocomplete="on"
+             required
+             formControlName="password">
+      <div class="valid-feedback my-valid-feedback" *ngIf="password.valid && (password.dirty || password.touched)">
+        Looks good!
+      </div>
+      <div class="invalid-feedback my-invalid-feedback"
+           *ngIf="password.invalid && (password.dirty || password.touched)">
+        <div *ngIf="password.errors.required">
+          Password is required.
+        </div>
+        <div *ngIf="password.errors.pattern">
+          Your password must be min 8 characters long, contain letters and numbers, 1 letters in Upper Case and special
+          characters (#$^+=!*()@%&).
+        </div>
+      </div>
+    </div>
+  </div>
+  <app-button-loading [loading]="isLoading" [title]="title" [valid]="!loginForm.valid"></app-button-loading>
+</form>

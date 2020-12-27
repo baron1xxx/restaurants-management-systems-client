@@ -1,4 +1,16 @@
-<form [formGroup]="registrationForm" (ngSubmit)="registration()">
+<app-error-message
+  *ngIf="errorMessage"
+  [message]="errorMessage"
+  (closeDangerAlert)="closeErrorMessage()">
+</app-error-message>
+
+<app-success-message
+*ngIf="successMessage"
+[message]="successMessage"
+(closeSuccessAlert)="closeSuccessMessage()">
+</app-success-message>
+
+<form [formGroup]="registrationForm" (ngSubmit)="registration()" class="form-container">
   <div class="form-row">
     <div class="col-md-6 mb-3">
       <input type="text"
@@ -6,9 +18,23 @@
              placeholder="First name"
              required
              formControlName="firstName">
-      <div class="invalid-feedback"
-           *ngIf="registrationForm.get('firstName').invalid && registrationForm.get('firstName').touched">
+      <div class="valid-feedback my-valid-feedback" *ngIf="firstName.valid && (firstName.dirty || firstName.touched)">
         Looks good!
+      </div>
+      <div class="invalid-feedback my-invalid-feedback"
+           *ngIf="firstName.invalid && (firstName.dirty || firstName.touched)">
+        <div *ngIf="firstName.errors.required">
+          First name is required.
+        </div>
+        <div *ngIf="firstName.errors.minlength">
+          Min length 3 characters.
+        </div>
+        <div *ngIf="firstName.errors.maxlength">
+          Max length 20 characters.
+        </div>
+        <div *ngIf="firstName.errors.pattern">
+          Do not match pattern.
+        </div>
       </div>
     </div>
     <div class="col-md-6 mb-3">
@@ -17,36 +43,72 @@
              placeholder="Last name"
              required
              formControlName="lastName">
-      <div class="valid-feedback">
+      <div class="valid-feedback my-valid-feedback" *ngIf="lastName.valid && (lastName.dirty || lastName.touched)">
         Looks good!
+      </div>
+      <div class="invalid-feedback my-invalid-feedback"
+           *ngIf="lastName.invalid && (lastName.dirty || lastName.touched)">
+        <div *ngIf="lastName.errors.required">
+          Last name is required.
+        </div>
+        <div *ngIf="lastName.errors.minlength">
+          Min length 3 characters.
+        </div>
+        <div *ngIf="lastName.errors.maxlength">
+          Max length 20 characters.
+        </div>
+        <div *ngIf="lastName.errors.pattern">
+          Do not match pattern.
+        </div>
       </div>
     </div>
   </div>
   <div class="form-row">
     <div class="col-md-6 mb-3">
       <input type="email"
-             class="form-control is-valid"
+             class="form-control"
              placeholder="Email"
              required
              formControlName="email">
-      <div class="valid-feedback">
+      <div class="valid-feedback my-valid-feedback" *ngIf="email.valid && (email.dirty || email.touched)">
         Looks good!
+      </div>
+      <div class="invalid-feedback my-invalid-feedback"
+           *ngIf="email.invalid && (email.dirty || email.touched)">
+        <div *ngIf="email.errors.required">
+          Email is required.
+        </div>
+        <div *ngIf="email.errors.pattern">
+          Do not match pattern.
+        </div>
       </div>
     </div>
     <div class="col-md-6 mb-3">
       <input type="password"
              class="form-control"
              placeholder="Password"
+             autocomplete="on"
              required
              formControlName="password">
-      <div class="valid-feedback">
+      <div class="valid-feedback my-valid-feedback" *ngIf="password.valid && (password.dirty || password.touched)">
         Looks good!
+      </div>
+      <div class="invalid-feedback my-invalid-feedback"
+           *ngIf="password.invalid && (password.dirty || password.touched)">
+        <div *ngIf="password.errors.required">
+          Password is required.
+        </div>
+        <div *ngIf="password.errors.pattern">
+          Your password must be min 8 characters long, contain letters and numbers, 1 letters in Upper Case and special
+          characters (#$^+=!*()@%&).
+        </div>
       </div>
     </div>
   </div>
   <div class="form-group form-check">
     <input type="checkbox" class="form-check-input" id="exampleCheck1" formControlName="role">
-    <label class="form-check-label" for="exampleCheck1">As restaurant owner</label>
+    <label class="form-check-label my-form-check-label" style="color: white" for="exampleCheck1">As restaurant
+      owner</label>
   </div>
-  <app-button-loading type="submit" (click)="registration()"></app-button-loading>
+  <app-button-loading [loading]="isLoading" [title]="title" [valid]="!registrationForm.valid"></app-button-loading>
 </form>
