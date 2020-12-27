@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 
 @Component({
   selector: 'app-button-loading',
@@ -7,21 +7,13 @@ import {Component, OnInit} from '@angular/core';
 })
 export class ButtonLoadingComponent implements OnInit {
 
-  title = 'Register';
-  isLoading = false;
+  @Input() title: string;
+  @Input() loading: boolean;
+  @Input() valid: boolean;
 
   constructor() {
   }
 
   ngOnInit() {
   }
-
-  toggleLoading = () => {
-    this.isLoading = true;
-
-    setTimeout(() => {
-      this.isLoading = false;
-    }, 3000);
-  }
-
 }
