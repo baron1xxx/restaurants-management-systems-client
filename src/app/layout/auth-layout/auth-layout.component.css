@@ -2,9 +2,11 @@
   display: flex;
   justify-content: center;
   background-image: url("./../../../assets/images/depositphotos_263080052-stock-photo-food-white-table-top-view.jpg");
+  background-size: 100%;
+  overflow: hidden;
 }
 
 .auth-box {
-  margin: 10% 0;
+  margin: 10% 0 20%;
 }
 

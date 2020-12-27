@@ -1,6 +1,6 @@
-import {LoginInterface} from './login.interface';
+import {Login} from './login.interface';
 
-export interface RegisterInterface extends LoginInterface {
+export interface Register extends Login {
   firstName: string;
   lastName: string;
   role: string;

@@ -9,6 +9,7 @@ import {ContentLayoutComponent} from './layout/content-layout/content-layout.com
 import {HeaderComponent} from './layout/header/header.component';
 import {FooterComponent} from './layout/footer/footer.component';
 import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component';
+import {CoreModule} from './modules/core/core.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AuthLayoutComponent } from './layout/auth-layout/auth-layout.component'
   imports: [
     BrowserModule,
     RouterModule,
+    CoreModule,
     SharedModule,
     AppRoutingModule
   ],
